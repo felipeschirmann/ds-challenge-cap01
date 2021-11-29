@@ -1,19 +1,16 @@
-package com.ds.challenge.cap01.entities;
+package com.ds.challenge.cap01.dto;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.Objects;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "tb_client")
-public class Client implements Serializable {
+import com.ds.challenge.cap01.entities.Client;
+
+public class ClientDTO implements Serializable {
 	/**
 	 * 
 	 */
@@ -23,8 +20,6 @@ public class Client implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	
-	@Column(length = 11)
 	private String cpf;
 	private Double income;
 	
@@ -32,11 +27,11 @@ public class Client implements Serializable {
 	private Instant birthDate;
 	private Integer children;
 	
-	public Client() {
-		
+	public ClientDTO() {
+		// TODO Auto-generated constructor stub
 	}
-	
-	public Client(Long id, String name, String cpf, Double income, Instant birthDate, Integer children) {
+
+	public ClientDTO(Long id, String name, String cpf, Double income, Instant birthDate, Integer children) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -44,6 +39,16 @@ public class Client implements Serializable {
 		this.income = income;
 		this.birthDate = birthDate;
 		this.children = children;
+	}
+	
+	public ClientDTO(Client entity) {
+		super();
+		this.id = entity.getId();
+		this.name = entity.getName();
+		this.cpf = entity.getCpf();
+		this.income = entity.getIncome();
+		this.birthDate = entity.getBirthDate();
+		this.children = entity.getChildren();
 	}
 
 	public Long getId() {
@@ -93,26 +98,5 @@ public class Client implements Serializable {
 	public void setChildren(Integer children) {
 		this.children = children;
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(birthDate, children, cpf, id, income, name);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Client other = (Client) obj;
-		return Objects.equals(birthDate, other.birthDate) && Objects.equals(children, other.children)
-				&& Objects.equals(cpf, other.cpf) && Objects.equals(id, other.id)
-				&& Objects.equals(income, other.income) && Objects.equals(name, other.name);
-	}
-	
-	
 	
 }
